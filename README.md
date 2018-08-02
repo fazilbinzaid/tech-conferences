@@ -9,3 +9,5 @@ This repository contains details of all the tech conferences around the globe.
 *  [ ] Setup JSON structure
  
 *  [ ] Front-end boilerplate setup
+
+*  [ ] Logo design @geekyrajshri please do this by this week

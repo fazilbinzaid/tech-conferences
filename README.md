@@ -10,4 +10,4 @@ This repository contains details of all the tech conferences around the globe.
  
 *  [ ] Front-end boilerplate setup
 
-*  [ ] Logo design @geekyrajshri please do this by this week
+*  [ ] Logo design

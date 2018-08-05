@@ -8,6 +8,11 @@ This repository contains details of all the tech conferences around the globe.
 
 *  [ ] Setup JSON structure
  
-*  [ ] Front-end boilerplate setup
+*  [X] Front-end boilerplate setup
 
 *  [ ] Logo design
+
+- Components:
+
+    *  [ ] Table
+    *  [ ] Navbar

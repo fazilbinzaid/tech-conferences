@@ -1,0 +1,25 @@
+[
+    {
+        "id":1,
+        "date":"02/10/2018",
+        "venue":"Conference Park",
+        "name": "PyConf",
+        "url": "https://www.google.com/"
+    },
+    {
+
+        "id":1,
+        "date":"02/10/2018",
+        "venue":"Conference Park",
+        "name": "PyConf",
+        "url": "https://www.google.com/"
+    },
+    {
+
+        "id":1,
+        "date":"02/10/2018",
+        "venue":"Conference Park",
+        "name": "PyConf",
+        "url": "https://www.google.com/"
+    }
+]

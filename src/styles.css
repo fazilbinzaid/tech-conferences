@@ -1,0 +1,9 @@
+.THeader {
+  font-style: italic;
+}
+.Name {
+  text-transform: capitalize;
+}
+.WebsiteLink {
+  text-decoration: none;
+}

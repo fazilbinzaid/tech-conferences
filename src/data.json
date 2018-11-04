@@ -1,0 +1,16 @@
+[
+    {
+        "name":"SciPy India",
+        "venue":"IIT Bombay",
+        "date":"21-22 Jan, 2018",
+        "description":"International conference on Python for education and scientific computing.",
+        "url":"https://scipy.in/"
+    },
+    {
+      "name": "IEEE Indicon",
+      "venue": "Amrita Vishwa Vidyapeetham, Coimbatore",
+      "date": "16-18 Dec, 2018",
+      "description": "The 15th IEEE India Council International Conference.",
+      "url": "http://indicon2018.in/"
+    }
+]

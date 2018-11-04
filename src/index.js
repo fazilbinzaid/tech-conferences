@@ -1,22 +1,16 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router'
-import store, { history } from './store'
-import App from './containers/app'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles.css";
+import Board from "./Board";
+import NavBar from "./Navbar";
+function App() {
+  return (
+    <div className="App">
+      <NavBar />
+      <Board />
+    </div>
+  );
+}
 
-import 'sanitize.css/sanitize.css'
-import './index.css'
-
-const target = document.querySelector('#root')
-
-render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <div>
-        <App />
-      </div>
-    </ConnectedRouter>
-  </Provider>,
-  target
-)
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);

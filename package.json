@@ -17,6 +17,7 @@
   "dependencies": {
     "@material-ui/core": "^1.4.3",
     "connected-react-router": "4.3.0",
+    "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "react": "16.4.2",
     "react-dom": "16.4.2",

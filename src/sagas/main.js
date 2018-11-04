@@ -1,5 +1,5 @@
 import createSagaMiddleware from 'redux-saga'
-import configureStore as store  from '../store';
+import {store}  from '../store';
 
 import mySaga from './sagas'
 

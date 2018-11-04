@@ -10,9 +10,9 @@ This repository contains details of all the tech conferences around the globe.
  
 *  [X] Front-end boilerplate setup
 
-*  [ ] Logo design
+*  [X] Logo design
 
 - Components:
 
-    *  [ ] Table
-    *  [ ] Navbar
+    *  [X] Table
+    *  [X] Navbar

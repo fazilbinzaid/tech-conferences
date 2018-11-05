@@ -25,24 +25,9 @@ const styles = theme => ({
 
 // Sorting the array by name key
 const rows = sortBy(data, "date");
-const totalMarks = {};
-// rows.map((row, key) => {
-//   console.log("", rows[key]);
-//   totalMarks[key] = {
-//     rollNumber: row.rollNumber,
-//     marks:
-//       parseInt(row.marks.Maths) +
-//       parseInt(row.marks.Science) +
-//       parseInt(row.marks.English)
-//   };
-// });
-// const topper = orderBy(totalMarks, "marks", ["desc"]);
-// const topper_rollNumber = topper[0].rollNumber;
 
 function Board(props) {
   const { classes } = props;
-
-  // console.log("total", totalMarks, topper[0].rollNumber);
 
   return (
     <Paper className={classes.root}>

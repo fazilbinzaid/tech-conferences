@@ -37,6 +37,9 @@ function NavBar(props) {
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Tech Conferences
           </Typography>
+          <Button variant="flat" className="AddEvent" onClick={props.open}>
+            Add Event
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

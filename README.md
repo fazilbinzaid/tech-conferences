@@ -10,8 +10,6 @@ http://tech-conferences.surge.sh/
 
 ## Todo:
 
-*  [X] Setup JSON structure
- 
-*  [X] Front-end boilerplate setup
-
-*  [X] Logo design
+[ ] - Firebase Integration
+[ ] - Sorting based on date/date-range
+[ ] - Sorting based on Location

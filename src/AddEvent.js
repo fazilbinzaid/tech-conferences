@@ -2,7 +2,8 @@ import React, { Fragment } from "react";
 import { TextField, Card, Button } from "@material-ui/core";
 import { Row, Col, Container } from "react-grid-system";
 import Dialog from "@material-ui/core/Dialog";
-import { eventsRef } from "./firebaseCustom";
+//import { eventsRef } from "./firebaseCustom";
+import  eventsRef  from "./data.json";
 
 const initialState = {
   date: Date(),

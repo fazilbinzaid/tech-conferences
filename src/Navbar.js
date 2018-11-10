@@ -28,13 +28,14 @@ const styles = {
   search: {
    position: 'relative',
    borderRadius:1 ,
-   background:'rgba(255, 0,255, 0.4)' ,
+   background:'#fff' ,
    '&:hover': {
      backgroundColor:'lighten(rgba(255,0,255,1),50%)' ,
    },
    marginRight: 10 * 2,
    marginLeft: 0,
    width: '20%',
+   paddingLeft: '5px !important',
    left:'-40%',
 
 
@@ -44,6 +45,7 @@ const styles = {
    height: '100%',
    position: 'absolute',
    pointerEvents: 'none',
+   fontFamily: 'Roboto',
    display: 'flex',
    alignItems: 'flex-end',
    justifyContent: 'flex-center',

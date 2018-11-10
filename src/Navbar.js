@@ -28,7 +28,7 @@ const styles = {
   search: {
    position: 'relative',
    borderRadius:1 ,
-   background:'#fff' ,
+   background:'rgba(255, 0,255, 0.4)' ,
    '&:hover': {
      backgroundColor:'lighten(rgba(255,0,255,1),50%)' ,
    },

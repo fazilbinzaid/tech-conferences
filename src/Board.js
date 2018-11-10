@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { sortBy, orderBy } from "lodash";
 
+
 import "./styles.css";
 import data from "./data.json";
 
@@ -23,26 +24,13 @@ const styles = theme => ({
   }
 });
 
-// Sorting the array by name key
-const rows = sortBy(data, "date");
-const totalMarks = {};
-// rows.map((row, key) => {
-//   console.log("", rows[key]);
-//   totalMarks[key] = {
-//     rollNumber: row.rollNumber,
-//     marks:
-//       parseInt(row.marks.Maths) +
-//       parseInt(row.marks.Science) +
-//       parseInt(row.marks.English)
-//   };
-// });
-// const topper = orderBy(totalMarks, "marks", ["desc"]);
-// const topper_rollNumber = topper[0].rollNumber;
+
+
 
 function Board(props) {
   const { classes } = props;
-
-  // console.log("total", totalMarks, topper[0].rollNumber);
+  // Sorting the array by name key
+  const rows = sortBy(props.list, "date");
 
   return (
     <Paper className={classes.root}>
@@ -80,5 +68,7 @@ function Board(props) {
 Board.propTypes = {
   classes: PropTypes.object.isRequired
 };
+
+
 
 export default withStyles(styles)(Board);

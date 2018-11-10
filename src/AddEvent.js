@@ -34,7 +34,7 @@ export default class AddEvent extends React.Component {
     this.props.close();
   };
   render() {
-    console.log("events ref in addevent", eventsRef);
+    
     return (
       <Dialog
         open={this.props.open}

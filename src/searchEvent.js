@@ -14,7 +14,6 @@ import data from "./data.json";
 
 
 const suggestions = data;
- console.log('data',data)
 function renderInputComponent(inputProps) {
   const { classes, inputRef = () => {}, ref, ...other } = inputProps;
 

@@ -22,7 +22,6 @@ class App extends React.Component {
     let filterList=data.filter((item)=>{
       if(item.name===name)return true;
     });
-   console.log('filtered List',filterList,'input',name);
     (filterList===undefined || filterList.length===0)? this.initState() : this.setState({ list: filterList });
   };
 

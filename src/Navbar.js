@@ -1,12 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import {
+  withStyles,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton
+} from "@material-ui/core/";
 import MenuIcon from "@material-ui/icons/Menu";
+import PropTypes from "prop-types";
+import { toggleSnackbar } from "./actions/snackbarActions";
 
 const styles = {
   root: {
@@ -20,34 +26,75 @@ const styles = {
     marginRight: 20
   }
 };
+class NavBar extends React.Component {
+  handleSnackClose = () => {
+    toggleSnackbar("");
+  };
 
-function NavBar(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            Tech Conferences
-          </Typography>
-          <Button variant="flat" className="AddEvent" onClick={props.open}>
-            Add Event
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+  onLogout = () => {
+    const { firebase, toggleSnackbar } = this.props;
+    firebase.logout().then(() => {
+      toggleSnackbar("Logout Successful");
+    });
+  };
+
+  render() {
+    const { classes, auth, open, openLogin } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Tech Conferences
+            </Typography>
+            {auth.uid ? (
+              <Button variant="text" className="NavButton" onClick={open}>
+                Add Event
+              </Button>
+            ) : null}
+            {!auth.uid ? (
+              <Button variant="text" className="NavButton" onClick={openLogin}>
+                Login
+              </Button>
+            ) : null}
+            {auth.uid ? (
+              <Button
+                variant="text"
+                className="NavButton"
+                onClick={this.onLogout}
+              >
+                Logout
+              </Button>
+            ) : null}
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  firebase: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  toggleSnackbar: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(NavBar);
+export default compose(
+  firebaseConnect(),
+  connect(
+    (state, props) => ({
+      auth: state.firebase.auth
+    }),
+    {
+      toggleSnackbar
+    }
+  )
+)(withStyles(styles)(NavBar));

@@ -1,7 +1,7 @@
-import * as firebase from "firebase";
+// import * as firebase from "firebase";
 
-import { FirebaseConfig } from "./config/keys";
-firebase.initializeApp(FirebaseConfig);
+// import FirebaseConfig from "./config/keys";
+// firebase.initializeApp(FirebaseConfig);
 
-export const databaseRef = firebase.database().ref();
-export const eventsRef = databaseRef.child("conferenceList");
+// export const databaseRef = firebase.database().ref();
+// export const eventsRef = databaseRef.child("conferenceList");

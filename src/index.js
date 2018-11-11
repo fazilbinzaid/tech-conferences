@@ -5,15 +5,30 @@ import NavBar from "./Navbar";
 import AddEvent from "./AddEvent";
 import Login from "./Login";
 import store from "./store";
+import MessageBar from "./MessageBar";
+import data from "./data.json";
 
 import { Provider } from "react-redux";
 
 import "./styles.css";
-import MessageBar from "./MessageBar";
+
 class App extends React.Component {
   state = {
     open: false,
-    openLogin: false
+    openLogin: false,
+    list: []
+  };
+  componentDidMount(){
+    this.initState();
+  };
+  initState=()=>{
+     this.setState({ list: data });
+  };
+  updateList=(name)=>{
+    let filterList=data.filter((item)=>{
+      if(item.name===name)return true;
+    });
+    (filterList===undefined || filterList.length===0)? this.initState() : this.setState({ list: filterList });
   };
   openForm = () => {
     this.setState({ open: true });
@@ -32,8 +47,9 @@ class App extends React.Component {
           <NavBar
             open={this.openForm.bind(this)}
             openLogin={this.openLoginForm.bind(this)}
+            update={this.updateList}
           />
-          <Board />
+          <Board list={this.state.list} />
           <AddEvent open={this.state.open} close={this.closeForm.bind(this)} />
           <Login
             openLogin={this.state.openLogin}

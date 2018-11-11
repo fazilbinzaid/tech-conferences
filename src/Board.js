@@ -14,7 +14,8 @@ import {
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-// import { sortBy } from "lodash";
+import { sortBy } from "lodash";
+
 
 import "./styles.css";
 // import data from "./data.json";
@@ -31,12 +32,12 @@ const styles = theme => ({
 });
 
 class Board extends React.Component {
-  getDate(dateFrom, dateTo) {
-    if (!dateFrom || !dateTo) {
+  getDate(row) {
+    if (!row.dateFrom || !row.dateTo) {
       return;
     }
-    const oDateFrom = new Date(dateFrom.toMillis());
-    const oDateTo = new Date(dateTo.toMillis());
+    const oDateFrom = new Date(row.dateFrom.toMillis());
+    const oDateTo = new Date(row.dateTo.toMillis());
 
     const monthArray = [
       "Jan",
@@ -67,9 +68,14 @@ class Board extends React.Component {
     );
   }
   render() {
-    // const rows = sortBy(data, "date");
-    const { classes, events, requesting } = this.props;
-    console.log(events);
+    const { classes, events, requesting, list } = this.props;
+    if(!(events && events.length)){
+     if(list && list.length){
+       const rows = sortBy(list, "date");
+     }
+    }else{
+      const rows = events.slice();
+    }
     return (
       <div>
         {requesting == true ? (
@@ -94,8 +100,8 @@ class Board extends React.Component {
                 </TableRow>
               </TableHead>
               <TableBody className="TableBody">
-                {events &&
-                  events.map(row => {
+                {rows &&
+                  rows.map(row => {
                     return (
                       <TableRow key={row.id}>
                         <TableCell component="th">
@@ -109,7 +115,7 @@ class Board extends React.Component {
                           </a>
                         </TableCell>
                         <TableCell>
-                          {this.getDate(row.dateFrom, row.dateTo)}
+                          {this.getDate(row) || row.date}
                         </TableCell>
                         <TableCell>{row.venue}</TableCell>
                         <TableCell>{row.description}</TableCell>
@@ -140,3 +146,4 @@ export default compose(
     requesting: state.firestore.status.requesting.events
   }))
 )(withStyles(styles)(Board));
+

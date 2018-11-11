@@ -8,13 +8,20 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton
+  IconButton,
+  TextField
 } from "@material-ui/core/";
-import MenuIcon from "@material-ui/icons/Menu";
+import {
+  MenuIcon,
+  SearchIcon
+} from "@material-ui/icons/";
 import PropTypes from "prop-types";
+
 import { toggleSnackbar } from "./actions/snackbarActions";
+import SearchEvent from "./searchEvent";
 
 const styles = {
+
   root: {
     flexGrow: 1
   },
@@ -24,8 +31,36 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
-  }
+  },
+
+  search: {
+   position: 'relative',
+   borderRadius:1 ,
+   background:'#fff' ,
+   '&:hover': {
+     backgroundColor:'lighten(rgba(255,0,255,1),50%)' ,
+   },
+   marginRight: 10 * 2,
+   marginLeft: 0,
+   width: '20%',
+   paddingLeft: '5px !important',
+   left:'-40%',
+
+
+ },
+ searchIcon: {
+   width: 4 * 9,
+   height: '100%',
+   position: 'absolute',
+   pointerEvents: 'none',
+   fontFamily: 'Roboto',
+   display: 'flex',
+   alignItems: 'flex-end',
+   justifyContent: 'flex-center',
+   marginLeft: '90%',
+ },
 };
+
 class NavBar extends React.Component {
   handleSnackClose = () => {
     toggleSnackbar("");
@@ -54,6 +89,12 @@ class NavBar extends React.Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Tech Conferences
             </Typography>
+            <div className={classes.search}>
+               <div className={classes.searchIcon}>
+                 <SearchIcon />
+               </div>
+               <SearchEvent update={props.update} />
+             </div>
             {auth.uid ? (
               <Button variant="text" className="NavButton" onClick={open}>
                 Add Event

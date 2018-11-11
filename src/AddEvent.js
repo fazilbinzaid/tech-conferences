@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   TextField,
   Button,
@@ -12,6 +12,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { toggleSnackbar } from "./actions/snackbarActions";
+
 
 const initialState = {
   dateFrom: Date(),

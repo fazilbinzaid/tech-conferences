@@ -16,19 +16,21 @@ class App extends React.Component {
   state = {
     open: false,
     openLogin: false,
-    list: []
+    list: data
   };
-  componentDidMount(){
+  componentDidMount() {
     this.initState();
+  }
+  initState = () => {
+    this.setState({ list: data });
   };
-  initState=()=>{
-     this.setState({ list: data });
-  };
-  updateList=(name)=>{
-    let filterList=data.filter((item)=>{
-      if(item.name===name)return true;
+  updateList = name => {
+    let filterList = data.filter(item => {
+      if (item.name === name) return true;
     });
-    (filterList===undefined || filterList.length===0)? this.initState() : this.setState({ list: filterList });
+    filterList === undefined || filterList.length === 0
+      ? this.initState()
+      : this.setState({ list: filterList });
   };
   openForm = () => {
     this.setState({ open: true });
@@ -47,7 +49,7 @@ class App extends React.Component {
           <NavBar
             open={this.openForm.bind(this)}
             openLogin={this.openLoginForm.bind(this)}
-            update={this.updateList}
+            update={this.updateList.bind(this)}
           />
           <Board list={this.state.list} />
           <AddEvent open={this.state.open} close={this.closeForm.bind(this)} />

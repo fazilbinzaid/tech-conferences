@@ -8,20 +8,17 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton,
-  TextField
+  IconButton
 } from "@material-ui/core/";
-import {
-  MenuIcon,
-  SearchIcon
-} from "@material-ui/icons/";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchIcon from "@material-ui/icons/Search";
+
 import PropTypes from "prop-types";
 
 import { toggleSnackbar } from "./actions/snackbarActions";
 import SearchEvent from "./searchEvent";
 
 const styles = {
-
   root: {
     flexGrow: 1
   },
@@ -34,31 +31,29 @@ const styles = {
   },
 
   search: {
-   position: 'relative',
-   borderRadius:1 ,
-   background:'#fff' ,
-   '&:hover': {
-     backgroundColor:'lighten(rgba(255,0,255,1),50%)' ,
-   },
-   marginRight: 10 * 2,
-   marginLeft: 0,
-   width: '20%',
-   paddingLeft: '5px !important',
-   left:'-40%',
-
-
- },
- searchIcon: {
-   width: 4 * 9,
-   height: '100%',
-   position: 'absolute',
-   pointerEvents: 'none',
-   fontFamily: 'Roboto',
-   display: 'flex',
-   alignItems: 'flex-end',
-   justifyContent: 'flex-center',
-   marginLeft: '90%',
- },
+    position: "relative",
+    borderRadius: 1,
+    background: "#fff",
+    "&:hover": {
+      backgroundColor: "lighten(rgba(255,0,255,1),50%)"
+    },
+    marginRight: 10 * 2,
+    marginLeft: 0,
+    width: "20%",
+    paddingLeft: "5px !important",
+    left: "-40%"
+  },
+  searchIcon: {
+    width: 4 * 9,
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    fontFamily: "Roboto",
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "flex-center",
+    marginLeft: "90%"
+  }
 };
 
 class NavBar extends React.Component {
@@ -74,7 +69,7 @@ class NavBar extends React.Component {
   };
 
   render() {
-    const { classes, auth, open, openLogin } = this.props;
+    const { classes, auth, open, openLogin, update } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -90,11 +85,11 @@ class NavBar extends React.Component {
               Tech Conferences
             </Typography>
             <div className={classes.search}>
-               <div className={classes.searchIcon}>
-                 <SearchIcon />
-               </div>
-               <SearchEvent update={props.update} />
-             </div>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <SearchEvent update={update} />
+            </div>
             {auth.uid ? (
               <Button variant="text" className="NavButton" onClick={open}>
                 Add Event

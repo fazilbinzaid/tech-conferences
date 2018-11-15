@@ -14,8 +14,7 @@ import {
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-import { sortBy } from "lodash";
-
+// import { sortBy } from "lodash";
 
 import "./styles.css";
 // import data from "./data.json";
@@ -69,16 +68,11 @@ class Board extends React.Component {
   }
   render() {
     const { classes, events, requesting, list } = this.props;
-    if(!(events && events.length)){
-     if(list && list.length){
-       const rows = sortBy(list, "date");
-     }
-    }else{
-      const rows = events.slice();
-    }
+    const rows = events || list;
+
     return (
       <div>
-        {requesting == true ? (
+        {requesting === true ? (
           <div style={{ marginTop: "50px" }}>
             <Grid container styles={{ marginTop: "20px" }} justify="center">
               <Grid item>
@@ -114,9 +108,7 @@ class Board extends React.Component {
                             {row.name}
                           </a>
                         </TableCell>
-                        <TableCell>
-                          {this.getDate(row) || row.date}
-                        </TableCell>
+                        <TableCell>{this.getDate(row) || row.date}</TableCell>
                         <TableCell>{row.venue}</TableCell>
                         <TableCell>{row.description}</TableCell>
                       </TableRow>
@@ -135,15 +127,17 @@ class Board extends React.Component {
 
 Board.propTypes = {
   classes: PropTypes.object.isRequired,
-  events: PropTypes.array,
-  requesting: PropTypes.bool.isRequired
+  events: PropTypes.array.isRequired,
+  requesting: PropTypes.bool.isRequired,
+  list: PropTypes.array
 };
+
+const mapStateToProps = state => ({
+  events: state.firestore.ordered.events,
+  requesting: state.firestore.status.requesting.events
+});
 
 export default compose(
   firestoreConnect([{ collection: "events" }]),
-  connect((state, props) => ({
-    events: state.firestore.ordered.events,
-    requesting: state.firestore.status.requesting.events
-  }))
+  connect(mapStateToProps)
 )(withStyles(styles)(Board));
-

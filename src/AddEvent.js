@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import {
   TextField,
   Button,
@@ -13,11 +13,11 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { toggleSnackbar } from "./actions/snackbarActions";
 
-
 const initialState = {
   dateFrom: Date(),
   dateTo: Date(),
   name: "",
+  url: "",
   venue: "",
   description: ""
 };
@@ -75,6 +75,14 @@ class AddEvent extends React.Component {
             label="Event Name"
             type="text"
             value={this.state.name}
+            onChange={this.handleChange}
+            fullWidth
+          />
+          <TextField
+            id="url"
+            label="URL"
+            type="text"
+            value={this.state.url}
             onChange={this.handleChange}
             fullWidth
           />

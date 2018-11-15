@@ -7,3 +7,6 @@
 .WebsiteLink {
   text-decoration: none;
 }
+.NavButton {
+  color: white !important;
+}

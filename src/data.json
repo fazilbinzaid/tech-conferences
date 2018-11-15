@@ -1,93 +1,100 @@
 [
-    {
-        "name":"SciPy India",
-        "venue":"IIT Bombay",
-        "date":"21-22 Jan, 2018",
-        "description":"International conference on Python for education and scientific computing.",
-        "url":"https://scipy.in/"
-    },
-    {
-      "name": "IEEE Indicon",
-      "venue": "Amrita Vishwa Vidyapeetham, Coimbatore",
-      "date": "16-18 Dec, 2018",
-      "description": "The 15th IEEE India Council International Conference.",
-      "url": "http://indicon2018.in/"
-    },
-    {
-  "name": "FunctionalConf",
-  "date": "12-16 Dec, 2018",
-  "venue": "The LaLiT Ashok Hotel, Bengaluru",
-  "description": "Bring together the growing community of functional programmers under one roof.",
-  "url": "https://functionalconf.com/"
-},
-{
-  "name": "Devops Days India",
-  "date": "8-9 Dec, 2018",
-  "venue": "Sheraton Grand, Bengaluru",
-  "description": "Devopsdays is a worldwide series of technical conferences covering topics of software development, IT infrastructure operations, and the intersection between them.",
-  "url": "http://devopsdaysindia.org/"
-}, {
-  "name": "ExpertTalks",
-  "date": "23-24 Nov, 2018",
-  "venue": "Hyatt Regency, Pune & SICR, Pune",
-  "description": "ExpertTalks invites practitioners from the software community to share experiences, insights and opinions on the technological innovations driving modern businesses.",
-  "url": "https://expert-talks.in/"
-}, {
-  "name": "Data Hack Summit",
-  "date": "22-24 Nov, 2018",
-  "venue": "NIMHANS Convention Centre, Bengaluru",
-  "description": "India's most advanced conference on Aritificial Intelligence, Machine Learning, Deep Learning and IoT.",
-  "url": "https://www.analyticsvidhya.com/datahack-summit-2018/?utm_source=kdnuggets"
-}, {
-  "name": "Grace Hopper Conference India",
-  "date": "14-16 Nov, 2018",
-  "venue": "Bangalore International Exhibition Center (BIEC)",
-  "description": "The Grace Hopper Celebration India is Asia's largest gathering of women technologists. It is produced by AnitaB.org and presented in partnership with ACM India.",
-  "url": "https://ghcindia.anitab.org/ghci-18-november-14-16-2018/"
-},
- {
-  "name": "ReactFoo",
-  "date": "1-2 Mar,2019",
-  "venue": "NIMHANS Convention Centre, Bengaluru",
-  "description": "A conference on React, alternatives to React, React Native and front-end engineering",
-  "url": "https://reactfoo.in/2019/"
-}, {
-  "name": "SACON",
-  "date": "15-16 Feb, 2019",
-  "venue": "Bengaluru",
-  "description": "India’s 1st Security Architecture Conference",
-  "url": "https://www.sacon.io/"
-}, {
-  "name": "Processing Community Day",
-  "date": "2 Feb, 2019",
-  "venue": "Bengaluru",
-  "description": "Processing Community Day (PCD) is a day to celebrate and explore art, code, and diversity around the world, conducted by Processing community",
-  "url": "https://processingindia.org/bangalore.html"
-}, {
-  "name": "RubyConf India",
-  "date": "20-21 Jan, 2019",
-  "venue": "Resort Rio and Club Rio Royale, Goa",
-  "description": "A global event complementing other RubyConf events across the world. This year it's a single track 2 day event, focused on the Language, Framework and Tools",
-  "url": "https://www.rubyconfindia.org/"
-}, {
-  "name": "Pragma IIITA",
-  "date": "19 -20 Jan, 2019",
-  "venue": "Indian Insitute of Information Technology, Allahabad",
-  "description": "Pragma is premier student design and developers’ conference held at IIIT-Allahabad. Attracting some of the best student developers from across India, Pragma is a 3 day extravaganza featuring a hackathon, workshops and numerous talks.",
-  "url": "http://pragmaconf.tech/"
-}, {
-  "name": "GopherCon",
-  "date": "18-19 Jan, 2019",
-  "venue": "Resort Rio, Goa",
-  "description": "Go conference in India. Go is an open source project developed by a team at Google and many contributors for the open source community",
-  "url": "https://gopherconindia.com/"
-}, {
-  "name": "JSFoo",
-  "date": "10 Jan, 2019",
-  "venue": "MCCIA Trade Tower, Pune",
-  "description": "The second Pune edition of India’s premier JavaScript conference",
-  "url": "https://jsfoo.in/2019-pune/"
-}
-
-
-   ]
+  {
+    "name": "SciPy India",
+    "venue": "IIT Bombay",
+    "date": "21-22 Jan, 2018",
+    "description": "International conference on Python for education and scientific computing.",
+    "url": "https://scipy.in/"
+  },
+  {
+    "name": "IEEE Indicon",
+    "venue": "Amrita Vishwa Vidyapeetham, Coimbatore",
+    "date": "16-18 Dec, 2018",
+    "description": "The 15th IEEE India Council International Conference.",
+    "url": "http://indicon2018.in/"
+  },
+  {
+    "name": "FunctionalConf",
+    "date": "12-16 Dec, 2018",
+    "venue": "The LaLiT Ashok Hotel, Bengaluru",
+    "description": "Bring together the growing community of functional programmers under one roof.",
+    "url": "https://functionalconf.com/"
+  },
+  {
+    "name": "Devops Days India",
+    "date": "8-9 Dec, 2018",
+    "venue": "Sheraton Grand, Bengaluru",
+    "description": "Devopsdays is a worldwide series of technical conferences covering topics of software development, IT infrastructure operations, and the intersection between them.",
+    "url": "http://devopsdaysindia.org/"
+  },
+  {
+    "name": "ExpertTalks",
+    "date": "23-24 Nov, 2018",
+    "venue": "Hyatt Regency, Pune & SICR, Pune",
+    "description": "ExpertTalks invites practitioners from the software community to share experiences, insights and opinions on the technological innovations driving modern businesses.",
+    "url": "https://expert-talks.in/"
+  },
+  {
+    "name": "Data Hack Summit",
+    "date": "22-24 Nov, 2018",
+    "venue": "NIMHANS Convention Centre, Bengaluru",
+    "description": "India's most advanced conference on Aritificial Intelligence, Machine Learning, Deep Learning and IoT.",
+    "url": "https://www.analyticsvidhya.com/datahack-summit-2018/?utm_source=kdnuggets"
+  },
+  {
+    "name": "Grace Hopper Conference India",
+    "date": "14-16 Nov, 2018",
+    "venue": "Bangalore International Exhibition Center (BIEC)",
+    "description": "The Grace Hopper Celebration India is Asia's largest gathering of women technologists. It is produced by AnitaB.org and presented in partnership with ACM India.",
+    "url": "https://ghcindia.anitab.org/ghci-18-november-14-16-2018/"
+  },
+  {
+    "name": "ReactFoo",
+    "date": "1-2 Mar,2019",
+    "venue": "NIMHANS Convention Centre, Bengaluru",
+    "description": "A conference on React, alternatives to React, React Native and front-end engineering",
+    "url": "https://reactfoo.in/2019/"
+  },
+  {
+    "name": "SACON",
+    "date": "15-16 Feb, 2019",
+    "venue": "Bengaluru",
+    "description": "India’s 1st Security Architecture Conference",
+    "url": "https://www.sacon.io/"
+  },
+  {
+    "name": "Processing Community Day",
+    "date": "2 Feb, 2019",
+    "venue": "Bengaluru",
+    "description": "Processing Community Day (PCD) is a day to celebrate and explore art, code, and diversity around the world, conducted by Processing community",
+    "url": "https://processingindia.org/bangalore.html"
+  },
+  {
+    "name": "RubyConf India",
+    "date": "20-21 Jan, 2019",
+    "venue": "Resort Rio and Club Rio Royale, Goa",
+    "description": "A global event complementing other RubyConf events across the world. This year it's a single track 2 day event, focused on the Language, Framework and Tools",
+    "url": "https://www.rubyconfindia.org/"
+  },
+  {
+    "name": "Pragma IIITA",
+    "date": "19 -20 Jan, 2019",
+    "venue": "Indian Insitute of Information Technology, Allahabad",
+    "description": "Pragma is premier student design and developers’ conference held at IIIT-Allahabad. Attracting some of the best student developers from across India, Pragma is a 3 day extravaganza featuring a hackathon, workshops and numerous talks.",
+    "url": "http://pragmaconf.tech/"
+  },
+  {
+    "name": "GopherCon",
+    "date": "18-19 Jan, 2019",
+    "venue": "Resort Rio, Goa",
+    "description": "Go conference in India. Go is an open source project developed by a team at Google and many contributors for the open source community",
+    "url": "https://gopherconindia.com/"
+  },
+  {
+    "name": "JSFoo",
+    "date": "10 Jan, 2019",
+    "venue": "MCCIA Trade Tower, Pune",
+    "description": "The second Pune edition of India’s premier JavaScript conference",
+    "url": "https://jsfoo.in/2019-pune/"
+  }
+]

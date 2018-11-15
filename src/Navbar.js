@@ -1,19 +1,24 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firebaseConnect } from "react-redux-firebase";
+import {
+  withStyles,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton
+} from "@material-ui/core/";
 import MenuIcon from "@material-ui/icons/Menu";
-import TextField from "@material-ui/core/TextField";
-import SearchEvent from "./searchEvent";
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from "@material-ui/icons/Search";
 
+import PropTypes from "prop-types";
+
+import { toggleSnackbar } from "./actions/snackbarActions";
+import SearchEvent from "./searchEvent";
 
 const styles = {
-
   root: {
     flexGrow: 1
   },
@@ -26,68 +31,106 @@ const styles = {
   },
 
   search: {
-   position: 'relative',
-   borderRadius:1 ,
-   background:'#fff' ,
-   '&:hover': {
-     backgroundColor:'lighten(rgba(255,0,255,1),50%)' ,
-   },
-   marginRight: 10 * 2,
-   marginLeft: 0,
-   width: '20%',
-   paddingLeft: '5px !important',
-   left:'-40%',
-
-
- },
- searchIcon: {
-   width: 4 * 9,
-   height: '100%',
-   position: 'absolute',
-   pointerEvents: 'none',
-   fontFamily: 'Roboto',
-   display: 'flex',
-   alignItems: 'flex-end',
-   justifyContent: 'flex-center',
-   marginLeft: '90%',
- },
+    position: "relative",
+    borderRadius: 1,
+    background: "#fff",
+    "&:hover": {
+      backgroundColor: "lighten(rgba(255,0,255,1),50%)"
+    },
+    marginRight: 10 * 2,
+    marginLeft: 0,
+    width: "20%",
+    paddingLeft: "5px !important",
+    left: "-40%"
+  },
+  searchIcon: {
+    width: 4 * 9,
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    fontFamily: "Roboto",
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "flex-center",
+    marginLeft: "90%"
+  }
 };
 
-function NavBar(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" >
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            Tech Conferences
-          </Typography>
-          <div className={classes.search}>
-                   <div className={classes.searchIcon}>
-                     <SearchIcon />
-                   </div>
+class NavBar extends React.Component {
+  handleSnackClose = () => {
+    toggleSnackbar("");
+  };
 
-		               <SearchEvent update={props.update} />
+  onLogout = () => {
+    const { firebase, toggleSnackbar } = this.props;
+    firebase.logout().then(() => {
+      toggleSnackbar("Logout Successful");
+    });
+  };
 
-                 </div>
-          <Button variant="flat" className="AddEvent" onClick={props.open}>
-            Add Event
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+  render() {
+    const { classes, auth, open, openLogin, update } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Tech Conferences
+            </Typography>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <SearchEvent update={update} />
+            </div>
+            {auth.uid ? (
+              <Button variant="text" className="NavButton" onClick={open}>
+                Add Event
+              </Button>
+            ) : null}
+            {!auth.uid ? (
+              <Button variant="text" className="NavButton" onClick={openLogin}>
+                Login
+              </Button>
+            ) : null}
+            {auth.uid ? (
+              <Button
+                variant="text"
+                className="NavButton"
+                onClick={this.onLogout}
+              >
+                Logout
+              </Button>
+            ) : null}
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  firebase: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  toggleSnackbar: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(NavBar);
+export default compose(
+  firebaseConnect(),
+  connect(
+    (state, props) => ({
+      auth: state.firebase.auth
+    }),
+    {
+      toggleSnackbar
+    }
+  )
+)(withStyles(styles)(NavBar));

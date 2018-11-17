@@ -18,7 +18,7 @@ http://tech-conferences.surge.sh/
 
 ## Todo:
 
-[ X ] - Firebase Integration
+[X] - Firebase Integration
 
 [ ] - Sorting based on date/date-range
 

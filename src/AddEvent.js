@@ -134,12 +134,10 @@ AddEvent.propTypes = {
   toggleSnackbar: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => {};
-
 export default compose(
   firestoreConnect(),
   connect(
-    mapStateToProps,
+    null,
     { toggleSnackbar }
   )
 )(AddEvent);

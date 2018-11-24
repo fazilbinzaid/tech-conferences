@@ -7,6 +7,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Tooltip,
+  TableSortLabel,
   Paper,
   CircularProgress,
   Grid
@@ -14,7 +16,7 @@ import {
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
-// import { sortBy } from "lodash";
+import { orderBy } from "lodash";
 
 import "./styles.css";
 // import data from "./data.json";
@@ -30,7 +32,21 @@ const styles = theme => ({
   }
 });
 
+const columns = [
+  { id: "name", label: "Name" },
+  { id: "date", label: "Date" },
+  { id: "venue", label: "Venue" },
+  { id: "description", label: "Description" }
+];
+
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortDir: "asc",
+      sortCol: columns && columns.length && columns[0]["id"]
+    };
+  }
   getDate(row) {
     if (!row.dateFrom || !row.dateTo) {
       return;
@@ -56,19 +72,40 @@ class Board extends React.Component {
       oDateFrom.getUTCDate() +
       " " +
       monthArray[oDateFrom.getUTCMonth()] +
-      ", " +
+      " " +
       oDateFrom.getUTCFullYear() +
       " to " +
       oDateTo.getUTCDate() +
       " " +
       monthArray[oDateTo.getUTCMonth()] +
-      ", " +
+      " " +
       oDateTo.getUTCFullYear()
     );
   }
+
+  onColumnHeaderClick = columnId => event => {
+    //If the column is clicked on for the first time, just make it active
+    if (columnId !== this.state.sortCol) {
+      this.setState({ sortCol: columnId });
+    } else {
+      //Toggle the direction based on subsequent column clicks
+      if (this.state.sortDir === "asc") {
+        this.setState({ sortDir: "desc" });
+      } else {
+        this.setState({ sortDir: "asc" });
+      }
+    }
+  };
+
   render() {
     const { classes, events, requesting, list } = this.props;
-    const rows = events || list;
+    const { sortDir, sortCol } = this.state;
+
+    //Get rows either from firebase or local mock json
+    const rows =
+      (events &&
+        orderBy(events, sortCol === "date" ? "dateFrom" : sortCol, sortDir)) ||
+      (list && orderBy(list, sortCol, sortDir));
 
     return (
       <div>
@@ -82,15 +119,32 @@ class Board extends React.Component {
           </div>
         ) : (
           <Paper className={classes.root}>
-            {/* <Grid container>
-              <Grid item xs={12}> */}
             <Table className={classes.table} padding="dense">
               <TableHead className="THeader">
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Venue</TableCell>
-                  <TableCell>Description</TableCell>
+                  {columns &&
+                    columns.map(col => (
+                      <TableCell
+                        key={col.id}
+                        padding="default"
+                        sortDirection={sortDir}
+                      >
+                        <Tooltip
+                          title="Sort"
+                          placement={"bottom-start"}
+                          enterDelay={300}
+                        >
+                          <TableSortLabel
+                            name={col.id}
+                            active={sortCol === col.id ? true : false}
+                            direction={sortDir}
+                            onClick={this.onColumnHeaderClick(col.id)}
+                          >
+                            {col.label}
+                          </TableSortLabel>
+                        </Tooltip>
+                      </TableCell>
+                    ))}
                 </TableRow>
               </TableHead>
               <TableBody className="TableBody">
@@ -116,8 +170,6 @@ class Board extends React.Component {
                   })}
               </TableBody>
             </Table>
-            {/* </Grid>
-            </Grid> */}
           </Paper>
         )}
       </div>
@@ -127,8 +179,8 @@ class Board extends React.Component {
 
 Board.propTypes = {
   classes: PropTypes.object.isRequired,
-  events: PropTypes.array.isRequired,
   requesting: PropTypes.bool.isRequired,
+  events: PropTypes.array,
   list: PropTypes.array
 };
 

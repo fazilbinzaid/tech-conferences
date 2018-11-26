@@ -25,3 +25,18 @@ http://tech-conferences.surge.sh/
 [ ] - Sorting based on Location
 
 [ ] - Word Cloud
+
+
+## Want to contribute to the Code-For-Cause?
+
+ Awesome!! 
+ 
+ Just:
+ 
+   - Fork the repo
+   
+   - Switch to the dev branch
+   
+   - Create a `keys.js` file inside `config` directory in `src`
+   
+   - Copy the credentials following this tutorial: https://scotch.io/tutorials/getting-started-with-firebase-cloud-firestore-build-a-vue-contact-app#toc-setting-up-cloud-firestore

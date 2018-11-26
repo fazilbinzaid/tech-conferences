@@ -13,6 +13,7 @@
     "lodash": "^4.17.11",
     "react": "^16.5.2",
     "react-autosuggest": "^9.4.2",
+    "react-d3-cloud": "^0.7.0",
     "react-dom": "^16.5.2",
     "react-grid-system": "^4.3.1",
     "react-material-ui-form-validator": "^2.0.2",
@@ -26,7 +27,8 @@
     "redux-auth-wrapper": "^2.0.3",
     "redux-firestore": "^0.5.8",
     "redux-saga": "^0.16.2",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typeface-roboto": "0.0.54"
   },
   "devDependencies": {},
   "scripts": {

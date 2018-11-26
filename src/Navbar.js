@@ -16,6 +16,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import PropTypes from "prop-types";
 
 import { toggleSnackbar } from "./actions/snackbarActions";
+import { applyFilter } from "./actions/filterActions";
+
 import SearchEvent from "./searchEvent";
 
 const styles = {
@@ -57,10 +59,12 @@ const styles = {
 };
 
 class NavBar extends React.Component {
+  handleFilterReset = () => {
+    this.props.applyFilter("");
+  };
   handleSnackClose = () => {
     toggleSnackbar("");
   };
-
   onLogout = () => {
     const { firebase, toggleSnackbar } = this.props;
     firebase.logout().then(() => {
@@ -69,7 +73,7 @@ class NavBar extends React.Component {
   };
 
   render() {
-    const { classes, auth, open, openLogin, update } = this.props;
+    const { classes, auth, open, openLogin, update, table } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -90,6 +94,15 @@ class NavBar extends React.Component {
               </div>
               <SearchEvent update={update} />
             </div>
+            {table.tableFilterText !== "" ? (
+              <Button
+                variant="text"
+                className="NavButton"
+                onClick={this.handleFilterReset.bind(this)}
+              >
+                Reset Filters
+              </Button>
+            ) : null}
             {auth.uid ? (
               <Button variant="text" className="NavButton" onClick={open}>
                 Add Event
@@ -120,17 +133,22 @@ NavBar.propTypes = {
   firebase: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  toggleSnackbar: PropTypes.func.isRequired
+  toggleSnackbar: PropTypes.func.isRequired,
+  applyFilter: PropTypes.func.isRequired,
+  table: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  table: state.table
+});
 export default compose(
   firebaseConnect(),
   connect(
-    (state, props) => ({
-      auth: state.firebase.auth
-    }),
+    mapStateToProps,
     {
-      toggleSnackbar
+      toggleSnackbar,
+      applyFilter
     }
   )
 )(withStyles(styles)(NavBar));

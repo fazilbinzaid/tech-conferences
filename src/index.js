@@ -6,6 +6,7 @@ import AddEvent from "./AddEvent";
 import Login from "./Login";
 import store from "./store";
 import MessageBar from "./MessageBar";
+import EventWordCloud from "./EventWordCloud";
 import data from "./data.json";
 
 import { Provider } from "react-redux";
@@ -52,6 +53,7 @@ class App extends React.Component {
             update={this.updateList.bind(this)}
           />
           <Board list={this.state.list} />
+          <EventWordCloud />
           <AddEvent open={this.state.open} close={this.closeForm.bind(this)} />
           <Login
             openLogin={this.state.openLogin}

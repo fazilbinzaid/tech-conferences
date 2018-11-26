@@ -39,6 +39,14 @@ const columns = [
   { id: "description", label: "Description" }
 ];
 
+// const data = [
+//   { text: "Hey", value: 1000 },
+//   { text: "lol", value: 200 },
+//   { text: "first impression", value: 800 },
+//   { text: "very cool", value: 1000000 },
+//   { text: "duck", value: 10 }
+// ];
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -83,9 +91,26 @@ class Board extends React.Component {
     );
   }
 
+  onWebsiteClick = e => {
+    const { firestore, events } = this.props;
+    let updatedPopularity;
+    const clickedConfId = e.target.id;
+
+    //Update popularity of clicked event
+    const aFilteredConf = events.filter(event => event.id === clickedConfId);
+    if (aFilteredConf && aFilteredConf.length) {
+      updatedPopularity = aFilteredConf[0]["popularityIndex"] + 100;
+    }
+
+    firestore.update(
+      { collection: "events", doc: clickedConfId },
+      { popularity: updatedPopularity }
+    );
+  };
+
   onColumnHeaderClick = columnId => event => {
-    //If the column is clicked on for the first time, just make it active
     if (columnId !== this.state.sortCol) {
+      //If the column is clicked on for the first time, just make it active
       this.setState({ sortCol: columnId });
     } else {
       //Toggle the direction based on subsequent column clicks
@@ -98,13 +123,17 @@ class Board extends React.Component {
   };
 
   render() {
-    const { classes, events, requesting, list } = this.props;
+    const { classes, events, requesting, list, table } = this.props;
     const { sortDir, sortCol } = this.state;
 
-    //Get rows either from firebase or local mock json
+    //Get rows either from firebase or local mock json, and provide a sorter
     const rows =
       (events &&
-        orderBy(events, sortCol === "date" ? "dateFrom" : sortCol, sortDir)) ||
+        orderBy(
+          events.filter(event => event.name.includes(table.tableFilterText)),
+          sortCol === "date" ? "dateFrom" : sortCol,
+          sortDir
+        )) ||
       (list && orderBy(list, sortCol, sortDir));
 
     return (
@@ -154,10 +183,12 @@ class Board extends React.Component {
                       <TableRow key={row.id}>
                         <TableCell component="th">
                           <a
+                            id={row.id}
                             href={row.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="WebsiteLink"
+                            onClick={this.onWebsiteClick.bind(this)}
                           >
                             {row.name}
                           </a>
@@ -186,7 +217,8 @@ Board.propTypes = {
 
 const mapStateToProps = state => ({
   events: state.firestore.ordered.events,
-  requesting: state.firestore.status.requesting.events
+  requesting: state.firestore.status.requesting.events,
+  table: state.table
 });
 
 export default compose(

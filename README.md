@@ -40,3 +40,5 @@ http://tech-conferences.surge.sh/
    - Create a `keys.js` file inside `config` directory in `src`
    
    - Copy the credentials following this tutorial: https://scotch.io/tutorials/getting-started-with-firebase-cloud-firestore-build-a-vue-contact-app#toc-setting-up-cloud-firestore
+   
+   - Keep the collections name in cloud firestore as `events`

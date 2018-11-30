@@ -20,7 +20,7 @@ const initialState = {
   url: "",
   venue: "",
   description: "",
-  popularity: ""
+  popularityIndex: ""
 };
 class AddEvent extends React.Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class AddEvent extends React.Component {
       newEvent.dateTo = new Date(newEvent.dateTo);
     }
     //Add a minimum popularity on submit of a new event
-    newEvent.popularity = 5;
+    newEvent.popularityIndex = 5;
     const { firestore, toggleSnackbar } = this.props;
     firestore
       .add({ collection: "events" }, newEvent)

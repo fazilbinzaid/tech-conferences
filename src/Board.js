@@ -104,7 +104,7 @@ class Board extends React.Component {
 
     firestore.update(
       { collection: "events", doc: clickedConfId },
-      { popularity: updatedPopularity }
+      { popularityIndex: updatedPopularity }
     );
   };
 

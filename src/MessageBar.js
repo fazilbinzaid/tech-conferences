@@ -25,7 +25,7 @@ class MessageBar extends Component {
 
 MessageBar.propTypes = {
   toggleSnackbar: PropTypes.func.isRequired,
-  isSnackBarOpen: PropTypes.bool.isRequired,
+  isSnackBarOpen: PropTypes.bool,
   snackMessage: PropTypes.string
 };
 

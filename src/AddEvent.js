@@ -5,8 +5,10 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
+  DialogActions,
+  Chip
 } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -19,20 +21,58 @@ const initialState = {
   name: "",
   url: "",
   venue: "",
-  description: ""
+  description: "",
+  popularity: "",
+  keyword:"",
+  tags:[],
 };
+const styles = theme => ({
+  chip: {
+    margin: theme.spacing.unit / 2,
+    marginTop: theme.spacing.unit
+  }
+});
 class AddEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.keyPress = this.keyPress.bind(this);
   }
 
   reset = () => {
     this.setState(initialState);
   };
+  keyPress(e){
+    if(e.keyCode === 13){
+       const value = e.target.value;
+       const keywords = this.state.tags;
+       const isKeywordPresent = keywords.find((keyword)=>{
+          return keyword.label.toLowerCase()===value.toLowerCase();
+       })
 
+       if(!isKeywordPresent && value!=''){
+        this.setState(state => {
+          const tags = keywords;
+          const keyword = '';
+          const chipDataLength = tags.length;
+          const lastChipKey = chipDataLength>0 ? tags[chipDataLength-1].key : -1;
+          tags.push({key:lastChipKey+1,label:value.toUpperCase()});
+          return { tags,keyword  };
+        });
+       }
+    }
+ }
   handleChange = event => {
     this.setState({ [event.target.id]: event.target.value });
+  };
+  handleDelete = data => () => {
+    this.setState(state => {
+      const tags = [...state.tags];
+      
+      const chipToDelete = tags.indexOf(data);
+      tags.splice(chipToDelete, 1);
+      return { tags};
+    });
   };
 
   handleSubmit = event => {
@@ -43,6 +83,8 @@ class AddEvent extends React.Component {
     if (newEvent.dateTo) {
       newEvent.dateTo = new Date(newEvent.dateTo);
     }
+    //Add a minimum popularity on submit of a new event
+    newEvent.popularity = 5;
     const { firestore, toggleSnackbar } = this.props;
     firestore
       .add({ collection: "events" }, newEvent)
@@ -58,6 +100,8 @@ class AddEvent extends React.Component {
     this.props.close();
   };
   render() {
+    const { classes } = this.props;
+
     return (
       <Dialog
         id="addEventDialog"
@@ -116,6 +160,25 @@ class AddEvent extends React.Component {
             onChange={this.handleChange}
             fullWidth
           />
+          {this.state.tags.map(data => {
+          return (
+            <Chip
+              key={data.key}
+              label={data.label}
+              onDelete={this.handleDelete(data)}
+              className={classes.chip}
+            />
+          );
+        })}
+          <TextField
+            id="keyword"
+            label="Keywords"
+            type="text"
+            value={this.state.keyword}
+            onChange={this.handleChange}
+            onKeyDown={this.keyPress}
+            fullWidth
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleClose} color="primary">
@@ -134,12 +197,10 @@ AddEvent.propTypes = {
   toggleSnackbar: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => {};
-
 export default compose(
   firestoreConnect(),
   connect(
-    mapStateToProps,
+    null,
     { toggleSnackbar }
   )
-)(AddEvent);
+)(withStyles(styles)(AddEvent));

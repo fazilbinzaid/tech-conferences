@@ -126,12 +126,10 @@ Login.propTypes = {
   firebase: PropTypes.object.isRequired
 };
 
-const mapStateToProps = () => {};
-
 export default compose(
   firebaseConnect(),
   connect(
-    mapStateToProps,
+    null,
     {
       toggleSnackbar
     }

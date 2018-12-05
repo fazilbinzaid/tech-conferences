@@ -32,24 +32,30 @@ class EventWordCloud extends Component {
 
   render() {
     const { events, classes } = this.props;
-    let eventPopularityMap = [];
+    let eventTagMap = [];
 
     if (events && events.length) {
       for (var i = 0; i < events.length; i++) {
-        const eventWords = events[i].name.split(" ");
+        const eventWords =
+          events[i].tags &&
+          events[i].tags.length &&
+          events[i].tags.map(tag => tag.label);
         for (var j = 0; j < eventWords.length; j++) {
-          const duplicateEvent = eventPopularityMap.filter(
+          //Look for duplicate tags in main event tag map
+          const duplicateEvent = eventTagMap.filter(
             eventData => eventData.text === eventWords[j]
           );
+          //If the tag has not already been added, created a new entry with count as 1
           if (!duplicateEvent.length) {
-            eventPopularityMap.push({
+            eventTagMap.push({
               text: eventWords[j],
-              value: events[i].popularityIndex
+              count: 1
             });
           } else {
-            for (var k = 0; k < eventPopularityMap.length; k++) {
-              if (eventPopularityMap[k].text === eventWords[j]) {
-                eventPopularityMap[k].value += events[i].popularityIndex;
+            //Increment the count of the tag
+            for (var k = 0; k < eventTagMap.length; k++) {
+              if (eventTagMap[k].text === eventWords[j]) {
+                eventTagMap[k].count += 1;
               }
             }
           }
@@ -57,12 +63,9 @@ class EventWordCloud extends Component {
       }
     }
 
-    //keep max of 10 keywords, sorted popularityIndex descending
-    if (eventPopularityMap && eventPopularityMap.length) {
-      eventPopularityMap = orderBy(eventPopularityMap, "value", "desc").slice(
-        0,
-        10
-      );
+    //keep max of 10 keywords, sorted by count, descending
+    if (eventTagMap && eventTagMap.length) {
+      eventTagMap = orderBy(eventTagMap, "count", "desc").slice(0, 10);
     }
 
     return (
@@ -70,8 +73,8 @@ class EventWordCloud extends Component {
         <Table className={classes.table} padding="dense">
           <TableHead className="THeader">
             <TableCell className="Trending">Trending</TableCell>
-            {eventPopularityMap &&
-              eventPopularityMap.map(word => (
+            {eventTagMap &&
+              eventTagMap.map(word => (
                 <TableCell>
                   <Button
                     key={word.text}

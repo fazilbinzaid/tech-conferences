@@ -27,7 +27,9 @@ class App extends React.Component {
   };
   updateList = name => {
     let filterList = data.filter(item => {
-      if (item.name === name) return true;
+      if (item.name === name) {
+        return true;
+      }
     });
     filterList === undefined || filterList.length === 0
       ? this.initState()

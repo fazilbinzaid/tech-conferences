@@ -91,23 +91,6 @@ class Board extends React.Component {
     );
   }
 
-  onWebsiteClick = e => {
-    const { firestore, events } = this.props;
-    let updatedPopularity;
-    const clickedConfId = e.target.id;
-
-    //Update popularity of clicked event
-    const aFilteredConf = events.filter(event => event.id === clickedConfId);
-    if (aFilteredConf && aFilteredConf.length) {
-      updatedPopularity = aFilteredConf[0]["popularityIndex"] + 100;
-    }
-
-    firestore.update(
-      { collection: "events", doc: clickedConfId },
-      { popularityIndex: updatedPopularity }
-    );
-  };
-
   onColumnHeaderClick = columnId => event => {
     if (columnId !== this.state.sortCol) {
       //If the column is clicked on for the first time, just make it active
@@ -188,7 +171,7 @@ class Board extends React.Component {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="WebsiteLink"
-                            onClick={this.onWebsiteClick.bind(this)}
+                            // onClick={this.onWebsiteClick.bind(this)}
                           >
                             {row.name}
                           </a>

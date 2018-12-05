@@ -22,10 +22,8 @@ const initialState = {
   url: "",
   venue: "",
   description: "",
-  popularity: "",
   keyword: "",
-  tags: [],
-  popularityIndex: ""
+  tags: []
 };
 const styles = theme => ({
   chip: {
@@ -43,6 +41,7 @@ class AddEvent extends React.Component {
   reset = () => {
     this.setState(initialState);
   };
+
   keyPress(e) {
     if (e.keyCode === 13) {
       const value = e.target.value;
@@ -51,7 +50,7 @@ class AddEvent extends React.Component {
         return keyword.label.toLowerCase() === value.toLowerCase();
       });
 
-      if (!isKeywordPresent && value != "") {
+      if (!isKeywordPresent && value !== "") {
         this.setState(state => {
           const tags = keywords;
           const keyword = "";
@@ -85,8 +84,8 @@ class AddEvent extends React.Component {
     if (newEvent.dateTo) {
       newEvent.dateTo = new Date(newEvent.dateTo);
     }
-    //Add a minimum popularity on submit of a new event
-    newEvent.popularityIndex = 5;
+    //keyword is a dummy variable that need not be persisted
+    delete newEvent.keyword;
     const { firestore, toggleSnackbar } = this.props;
     firestore
       .add({ collection: "events" }, newEvent)

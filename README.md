@@ -20,11 +20,17 @@ http://tech-conferences.surge.sh/
 
  * [X] - Firebase Integration
 
- *  [X] - Sorting based on date/date-range
+ * [X] - Sorting based on date/date-range
 
- * \[X] - Sorting based on Location
+ * [X] - Sorting based on Location
 
- * \[X] - Word Cloud
+ * [X] - Word Cloud
+ 
+ * [ ] - Logo Design
+ 
+ * [ ] - Script to fetch data
+ 
+ * [ ] - Standard Deployment
 
 
 ## Want to contribute to the Code-For-Cause?

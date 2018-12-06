@@ -18,13 +18,13 @@ http://tech-conferences.surge.sh/
 
 ## Todo:
 
-[ X ] - Firebase Integration
+ * [X] - Firebase Integration
 
-[ ] - Sorting based on date/date-range
+ *  [X] - Sorting based on date/date-range
 
-[ ] - Sorting based on Location
+ * \[X] - Sorting based on Location
 
-[ ] - Word Cloud
+ * \[X] - Word Cloud
 
 
 ## Want to contribute to the Code-For-Cause?

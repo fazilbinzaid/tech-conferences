@@ -34,13 +34,14 @@ class EventWordCloud extends Component {
     const { events, classes } = this.props;
     let eventTagMap = [];
 
-    if (events && events.length) {
+    if (events && events.length > 0) {
       for (var i = 0; i < events.length; i++) {
         const eventWords =
           events[i].tags &&
           events[i].tags.length &&
           events[i].tags.map(tag => tag.label);
-        for (var j = 0; j < eventWords.length; j++) {
+        if(eventWords && eventWords.length > 0){
+          for (var j = 0; j < eventWords.length; j++) {
           //Look for duplicate tags in main event tag map
           const duplicateEvent = eventTagMap.filter(
             eventData => eventData.text === eventWords[j]
@@ -62,6 +63,7 @@ class EventWordCloud extends Component {
         }
       }
     }
+  }
 
     //keep max of 10 keywords, sorted by count, descending
     if (eventTagMap && eventTagMap.length) {

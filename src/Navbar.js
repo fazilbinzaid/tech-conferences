@@ -39,11 +39,11 @@ const styles = {
     "&:hover": {
       backgroundColor: "lighten(rgba(255,0,255,1),50%)"
     },
-    marginRight: 10 * 2,
-    marginLeft: 0,
+    marginRight: "auto",
+    marginLeft: "auto",
     width: "20%",
     paddingLeft: "5px !important",
-    left: "-40%"
+    // left: "-40%"
   },
   searchIcon: {
     width: 4 * 9,

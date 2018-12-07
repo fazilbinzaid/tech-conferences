@@ -22,9 +22,8 @@ const initialState = {
   url: "",
   venue: "",
   description: "",
-  popularity: "",
-  keyword:"",
-  tags:[],
+  keyword: "",
+  tags: []
 };
 const styles = theme => ({
   chip: {
@@ -42,36 +41,38 @@ class AddEvent extends React.Component {
   reset = () => {
     this.setState(initialState);
   };
-  keyPress(e){
-    if(e.keyCode === 13){
-       const value = e.target.value;
-       const keywords = this.state.tags;
-       const isKeywordPresent = keywords.find((keyword)=>{
-          return keyword.label.toLowerCase()===value.toLowerCase();
-       })
 
-       if(!isKeywordPresent && value!=''){
+  keyPress(e) {
+    if (e.keyCode === 13) {
+      const value = e.target.value;
+      const keywords = this.state.tags;
+      const isKeywordPresent = keywords.find(keyword => {
+        return keyword.label.toLowerCase() === value.toLowerCase();
+      });
+
+      if (!isKeywordPresent && value !== "") {
         this.setState(state => {
           const tags = keywords;
-          const keyword = '';
+          const keyword = "";
           const chipDataLength = tags.length;
-          const lastChipKey = chipDataLength>0 ? tags[chipDataLength-1].key : -1;
-          tags.push({key:lastChipKey+1,label:value.toUpperCase()});
-          return { tags,keyword  };
+          const lastChipKey =
+            chipDataLength > 0 ? tags[chipDataLength - 1].key : -1;
+          tags.push({ key: lastChipKey + 1, label: value.toUpperCase() });
+          return { tags, keyword };
         });
-       }
+      }
     }
- }
+  }
   handleChange = event => {
     this.setState({ [event.target.id]: event.target.value });
   };
   handleDelete = data => () => {
     this.setState(state => {
       const tags = [...state.tags];
-      
+
       const chipToDelete = tags.indexOf(data);
       tags.splice(chipToDelete, 1);
-      return { tags};
+      return { tags };
     });
   };
 
@@ -83,8 +84,8 @@ class AddEvent extends React.Component {
     if (newEvent.dateTo) {
       newEvent.dateTo = new Date(newEvent.dateTo);
     }
-    //Add a minimum popularity on submit of a new event
-    newEvent.popularity = 5;
+    //keyword is a dummy variable that need not be persisted
+    delete newEvent.keyword;
     const { firestore, toggleSnackbar } = this.props;
     firestore
       .add({ collection: "events" }, newEvent)
@@ -161,15 +162,15 @@ class AddEvent extends React.Component {
             fullWidth
           />
           {this.state.tags.map(data => {
-          return (
-            <Chip
-              key={data.key}
-              label={data.label}
-              onDelete={this.handleDelete(data)}
-              className={classes.chip}
-            />
-          );
-        })}
+            return (
+              <Chip
+                key={data.key}
+                label={data.label}
+                onDelete={this.handleDelete(data)}
+                className={classes.chip}
+              />
+            );
+          })}
           <TextField
             id="keyword"
             label="Keywords"

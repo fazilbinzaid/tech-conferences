@@ -27,7 +27,9 @@ class App extends React.Component {
   };
   updateList = name => {
     let filterList = data.filter(item => {
-      if (item.name === name) return true;
+      if (item.name === name) {
+        return true;
+      }
     });
     filterList === undefined || filterList.length === 0
       ? this.initState()
@@ -52,8 +54,9 @@ class App extends React.Component {
             openLogin={this.openLoginForm.bind(this)}
             update={this.updateList.bind(this)}
           />
-          <Board list={this.state.list} />
           <EventWordCloud />
+          <Board list={this.state.list} />
+
           <AddEvent open={this.state.open} close={this.closeForm.bind(this)} />
           <Login
             openLogin={this.state.openLogin}

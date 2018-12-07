@@ -1,4 +1,4 @@
-import * as actions from "../actions/";
+// import * as actions from "../actions/";
 import { APPLY_FILTER } from "../actions/types";
 
 const initialState = {

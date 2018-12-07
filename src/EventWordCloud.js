@@ -1,49 +1,96 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { Grid } from "@material-ui/core/";
-import WordCloud from "react-d3-cloud";
+import {
+  withStyles,
+  Table,
+  TableCell,
+  TableHead,
+  Paper,
+  Button
+} from "@material-ui/core/";
 import { firestoreConnect } from "react-redux-firebase";
+import { orderBy } from "lodash";
 import "typeface-roboto";
 import { applyFilter } from "./actions/filterActions";
 
-const data = [
-  { text: "Hey", value: 1000 },
-  { text: "lol", value: 200 },
-  { text: "first impression", value: 800 },
-  { text: "very cool", value: 1000000 },
-  { text: "duck", value: 10 }
-];
-const fontSizeMapper = word => Math.log2(word.value) * 5;
-class EventWordCloud extends Component {
-  constructor(props) {
-    super(props);
+const styles = theme => ({
+  root: {
+    width: "100%",
+    marginTop: theme.spacing.unit * 3,
+    overflowX: "auto"
+  },
+  table: {
+    minWidth: 700
   }
+});
+
+class EventWordCloud extends Component {
   onWordClick = word => {
     this.props.applyFilter(word.text);
   };
 
   render() {
-    const { events } = this.props;
-    const eventPopularityMap =
-      events &&
-      events.map(event => {
-        return { text: event.name, value: parseInt(event.popularityIndex) };
-      });
-    console.log(eventPopularityMap);
+    const { events, classes } = this.props;
+    let eventTagMap = [];
+
+    if (events && events.length) {
+      for (var i = 0; i < events.length; i++) {
+        const eventWords =
+          events[i].tags &&
+          events[i].tags.length &&
+          events[i].tags.map(tag => tag.label);
+        for (var j = 0; j < eventWords.length; j++) {
+          //Look for duplicate tags in main event tag map
+          const duplicateEvent = eventTagMap.filter(
+            eventData => eventData.text === eventWords[j]
+          );
+          //If the tag has not already been added, created a new entry with count as 1
+          if (!duplicateEvent.length) {
+            eventTagMap.push({
+              text: eventWords[j],
+              count: 1
+            });
+          } else {
+            //Increment the count of the tag
+            for (var k = 0; k < eventTagMap.length; k++) {
+              if (eventTagMap[k].text === eventWords[j]) {
+                eventTagMap[k].count += 1;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //keep max of 10 keywords, sorted by count, descending
+    if (eventTagMap && eventTagMap.length) {
+      eventTagMap = orderBy(eventTagMap, "count", "desc").slice(0, 10);
+    }
+
     return (
-      <Grid container justify="center">
-        <Grid item>
-          {eventPopularityMap && eventPopularityMap.length ? (
-            <WordCloud
-              data={eventPopularityMap}
-              fontSizeMapper={fontSizeMapper}
-              font="Roboto"
-              onWordClick={this.onWordClick.bind(this)}
-            />
-          ) : null}
-        </Grid>
-      </Grid>
+      <div>
+        {eventTagMap && eventTagMap.length ? (
+          <Paper className={classes.root}>
+            <Table className={classes.table} padding="dense">
+              <TableHead className="THeader">
+                <TableCell className="Trending">Trending</TableCell>
+                {eventTagMap.map(word => (
+                  <TableCell>
+                    <Button
+                      key={word.text}
+                      padding="default"
+                      onClick={this.onWordClick.bind(this, word)}
+                    >
+                      {word.text}
+                    </Button>
+                  </TableCell>
+                ))}
+              </TableHead>
+            </Table>
+          </Paper>
+        ) : null}
+      </div>
     );
   }
 }
@@ -58,4 +105,4 @@ export default compose(
     mapStateToProps,
     { applyFilter }
   )
-)(EventWordCloud);
+)(withStyles(styles)(EventWordCloud));

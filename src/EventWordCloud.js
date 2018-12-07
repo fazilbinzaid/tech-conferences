@@ -69,25 +69,28 @@ class EventWordCloud extends Component {
     }
 
     return (
-      <Paper className={classes.root}>
-        <Table className={classes.table} padding="dense">
-          <TableHead className="THeader">
-            <TableCell className="Trending">Trending</TableCell>
-            {eventTagMap &&
-              eventTagMap.map(word => (
-                <TableCell>
-                  <Button
-                    key={word.text}
-                    padding="default"
-                    onClick={this.onWordClick.bind(this, word)}
-                  >
-                    {word.text}
-                  </Button>
-                </TableCell>
-              ))}
-          </TableHead>
-        </Table>
-      </Paper>
+      <div>
+        {eventTagMap && eventTagMap.length ? (
+          <Paper className={classes.root}>
+            <Table className={classes.table} padding="dense">
+              <TableHead className="THeader">
+                <TableCell className="Trending">Trending</TableCell>
+                {eventTagMap.map(word => (
+                  <TableCell>
+                    <Button
+                      key={word.text}
+                      padding="default"
+                      onClick={this.onWordClick.bind(this, word)}
+                    >
+                      {word.text}
+                    </Button>
+                  </TableCell>
+                ))}
+              </TableHead>
+            </Table>
+          </Paper>
+        ) : null}
+      </div>
     );
   }
 }

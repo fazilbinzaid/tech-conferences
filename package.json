@@ -1,7 +1,8 @@
 {
   "name": "new",
   "version": "1.0.0",
-  "description": "",
+  "homepage" : "http://myname.github.io/myapp",
+  "description": "A curated collection of all the tech conferences",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {

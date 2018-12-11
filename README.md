@@ -11,6 +11,7 @@ This repository contains details of all the tech conferences around the globe.
 
 [![Coverage Status](https://coveralls.io/repos/github/code-for-cause/tech-conferences/badge.svg?branch=master)](https://coveralls.io/github/code-for-cause/tech-conferences?branch=master)
 [![Build Status](https://travis-ci.org/code-for-cause/tech-conferences.svg?branch=master)](https://travis-ci.org/code-for-cause/tech-conferences)
+[<img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"/>](https://liberapay.com/vikaskyadav/donate)
 
 [![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
 
@@ -49,3 +50,7 @@ This repository contains details of all the tech conferences around the globe.
    - Copy the credentials following this tutorial: https://scotch.io/tutorials/getting-started-with-firebase-cloud-firestore-build-a-vue-contact-app#toc-setting-up-cloud-firestore
    
    - Keep the collections name in cloud firestore as `events`
+   
+## Donations are welcome
+
+[<img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"/>](https://liberapay.com/vikaskyadav/donate)

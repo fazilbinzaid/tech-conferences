@@ -7,6 +7,10 @@
 .WebsiteLink {
   text-decoration: none;
 }
-.AddEvent {
+.NavButton {
   color: white !important;
+}
+
+.Trending {
+  color: red !important;
 }

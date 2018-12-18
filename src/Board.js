@@ -1,16 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { sortBy, orderBy } from "lodash";
+import {
+  withStyles,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Tooltip,
+  TableSortLabel,
+  Paper,
+  CircularProgress,
+  Grid
+} from "@material-ui/core/";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { orderBy } from "lodash";
 
 import "./styles.css";
-import data from "./data.json";
+// import data from "./data.json";
 
 const styles = theme => ({
   root: {
@@ -23,47 +32,179 @@ const styles = theme => ({
   }
 });
 
-// Sorting the array by name key
-const rows = sortBy(data, "date");
+const columns = [
+  { id: "name", label: "Name" },
+  { id: "date", label: "Date" },
+  { id: "venue", label: "Venue" },
+  { id: "description", label: "Description" }
+];
 
-function Board(props) {
-  const { classes } = props;
+// const data = [
+//   { text: "Hey", value: 1000 },
+//   { text: "lol", value: 200 },
+//   { text: "first impression", value: 800 },
+//   { text: "very cool", value: 1000000 },
+//   { text: "duck", value: 10 }
+// ];
 
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table} padding="dense">
-        <TableHead className="THeader">
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Venue</TableCell>
-            <TableCell>Description</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody className="TableBody">
-          {rows.map(row => {
-            return (
-              <TableRow key={row.id}>
-                <TableCell component="th">
-                  <a href={row.url} target="_blank" className="WebsiteLink">
-                    {row.name}
-                  </a>
-                </TableCell>
+class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sortDir: "asc",
+      sortCol: columns && columns.length && columns[0]["id"]
+    };
+  }
+  getDate(row) {
+    if (!row.dateFrom || !row.dateTo) {
+      return;
+    }
+    const oDateFrom = new Date(row.dateFrom.toMillis());
+    const oDateTo = new Date(row.dateTo.toMillis());
 
-                <TableCell>{row.date}</TableCell>
-                <TableCell>{row.venue}</TableCell>
-                <TableCell>{row.description}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
+    const monthArray = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+    return (
+      oDateFrom.getUTCDate() +
+      " " +
+      monthArray[oDateFrom.getUTCMonth()] +
+      " " +
+      oDateFrom.getUTCFullYear() +
+      " to " +
+      oDateTo.getUTCDate() +
+      " " +
+      monthArray[oDateTo.getUTCMonth()] +
+      " " +
+      oDateTo.getUTCFullYear()
+    );
+  }
+
+  onColumnHeaderClick = columnId => event => {
+    if (columnId !== this.state.sortCol) {
+      //If the column is clicked on for the first time, just make it active
+      this.setState({ sortCol: columnId });
+    } else {
+      //Toggle the direction based on subsequent column clicks
+      if (this.state.sortDir === "asc") {
+        this.setState({ sortDir: "desc" });
+      } else {
+        this.setState({ sortDir: "asc" });
+      }
+    }
+  };
+
+  render() {
+    const { classes, events, requesting, list, table } = this.props;
+    const { sortDir, sortCol } = this.state;
+
+    //Get rows either from firebase or local mock json, and provide a sorter
+    const rows =
+      (events &&
+        orderBy(
+          events.filter(event => event.name.includes(table.tableFilterText)),
+          sortCol === "date" ? "dateFrom" : sortCol,
+          sortDir
+        )) ||
+      (list && orderBy(list, sortCol, sortDir));
+
+    return (
+      <div>
+        {requesting === true ? (
+          <div style={{ marginTop: "50px" }}>
+            <Grid container styles={{ marginTop: "20px" }} justify="center">
+              <Grid item>
+                <CircularProgress />
+              </Grid>
+            </Grid>
+          </div>
+        ) : (
+          <Paper className={classes.root}>
+            <Table className={classes.table} padding="dense">
+              <TableHead className="THeader">
+                <TableRow>
+                  {columns &&
+                    columns.map(col => (
+                      <TableCell
+                        key={col.id}
+                        padding="default"
+                        sortDirection={sortDir}
+                      >
+                        <Tooltip
+                          title="Sort"
+                          placement={"bottom-start"}
+                          enterDelay={300}
+                        >
+                          <TableSortLabel
+                            name={col.id}
+                            active={sortCol === col.id ? true : false}
+                            direction={sortDir}
+                            onClick={this.onColumnHeaderClick(col.id)}
+                          >
+                            {col.label}
+                          </TableSortLabel>
+                        </Tooltip>
+                      </TableCell>
+                    ))}
+                </TableRow>
+              </TableHead>
+              <TableBody className="TableBody">
+                {rows &&
+                  rows.map(row => {
+                    return (
+                      <TableRow key={row.id}>
+                        <TableCell component="th">
+                          <a
+                            id={row.id}
+                            href={row.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="WebsiteLink"
+                            // onClick={this.onWebsiteClick.bind(this)}
+                          >
+                            {row.name}
+                          </a>
+                        </TableCell>
+                        <TableCell>{this.getDate(row) || row.date}</TableCell>
+                        <TableCell>{row.venue}</TableCell>
+                        <TableCell>{row.description}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </Paper>
+        )}
+      </div>
+    );
+  }
 }
 
 Board.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  requesting: PropTypes.bool.isRequired,
+  events: PropTypes.array,
+  list: PropTypes.array
 };
 
-export default withStyles(styles)(Board);
+const mapStateToProps = state => ({
+  events: state.firestore.ordered.events,
+  requesting: state.firestore.status.requesting.events,
+  table: state.table
+});
+
+export default compose(
+  firestoreConnect([{ collection: "events" }]),
+  connect(mapStateToProps)
+)(withStyles(styles)(Board));

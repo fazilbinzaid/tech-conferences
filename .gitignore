@@ -1,3 +1,7 @@
 node_modules/
 .vs
 config/
+.vscode/
+package-lock.json
+build/
+yarn-error.log

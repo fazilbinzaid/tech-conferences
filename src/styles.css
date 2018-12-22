@@ -14,3 +14,7 @@
 .Trending {
   color: red !important;
 }
+
+.SelectedFilters {
+  color: green !important;
+}

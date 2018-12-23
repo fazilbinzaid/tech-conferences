@@ -86,9 +86,6 @@ const styles = theme=>( {
 });
 
 class NavBar extends React.Component {
-  handleFilterReset = () => {
-    this.props.applyFilter("");
-  };
   handleSnackClose = () => {
     toggleSnackbar("");
   };
@@ -100,7 +97,7 @@ class NavBar extends React.Component {
   };
 
   render() {
-    const { classes, auth, open, openLogin, update, table } = this.props;
+    const { classes, auth, open, openLogin, update } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -121,15 +118,6 @@ class NavBar extends React.Component {
               </div>
               <SearchEvent update={update} />
             </div>
-            {table.tableFilterText !== "" ? (
-              <Button
-                variant="text"
-                className="NavButton"
-                onClick={this.handleFilterReset.bind(this)}
-              >
-                Reset Filters
-              </Button>
-            ) : null}
             {auth.uid ? (
               <Button variant="text" className="NavButton" onClick={open}>
                 Add Event

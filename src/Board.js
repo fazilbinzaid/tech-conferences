@@ -113,7 +113,16 @@ class Board extends React.Component {
     const rows =
       (events &&
         orderBy(
-          events.filter(event => event.name.includes(table.tableFilterText)),
+          table.tableFilterTexts && table.tableFilterTexts.length
+            ? events.filter(
+                event =>
+                  event.tags.filter(
+                    tag =>
+                      table.tableFilterTexts.filter(text => text === tag.label)
+                        .length
+                  ).length
+              )
+            : events,
           sortCol === "date" ? "dateFrom" : sortCol,
           sortDir
         )) ||

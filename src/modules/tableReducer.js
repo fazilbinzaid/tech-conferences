@@ -1,10 +1,10 @@
 // import * as actions from "../actions/";
-import { APPLY_FILTER } from "../actions/types";
+import { APPLY_FILTER, REMOVE_FILTER } from "../actions/types";
 
 const initialState = {
   // loading: false,
   // tableData: [],
-  tableFilterText: ""
+  tableFilterTexts: []
 };
 
 export default (state = initialState, action) => {
@@ -12,7 +12,15 @@ export default (state = initialState, action) => {
     case APPLY_FILTER:
       return {
         ...state,
-        tableFilterText: action.payload
+        tableFilterTexts: [...state.tableFilterTexts, action.payload]
+      };
+
+    case REMOVE_FILTER:
+      return {
+        ...state,
+        tableFilterTexts: [...state.tableFilterTexts].filter(
+          text => action.payload !== text
+        )
       };
     // case actions.FETCH_TABLE_DATA_REQUEST:
     //   console.log("inside fetch");

@@ -105,14 +105,14 @@ class EventWordCloud extends Component {
               ? table.tableFilterTexts.map(text => (
                   <Chip
                     label={
-                      text +
+                      text.toUpperCase() +
                       "(" +
                       eventTagMap.filter(event => event.text === text)[0][
                         "count"
                       ] +
                       ")"
                     }
-                    color="primary"
+                    color="secondary"
                     className={classes.chip}
                     onDelete={this.handleFilterDelete(text)}
                   />

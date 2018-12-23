@@ -1,6 +1,3 @@
-.THeader {
-  font-style: italic;
-}
 .Name {
   text-transform: capitalize;
 }
@@ -11,10 +8,17 @@
   color: white !important;
 }
 
-.Trending {
+.WorcloudTrending {
   color: red !important;
+  font-style: italic;
+  font-family: "Roboto";
+  margin-left: 20px;
 }
 
 .SelectedFilters {
   color: green !important;
+}
+
+.WordcloudButton {
+  margin: 7px;
 }

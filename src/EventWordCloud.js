@@ -88,27 +88,18 @@ class EventWordCloud extends Component {
         {eventTagMap && eventTagMap.length ? (
           <div>
             <Paper className={classes.root}>
-              <Table className={classes.table} padding="dense">
-                <TableHead className="THeader">
-                  <TableRow>
-                    <TableCell className="Trending">Trending</TableCell>
-                    {eventTagMap.map(word => (
-                      <TableCell>
-                        <Button
-                          key={word.text}
-                          padding="default"
-                          disabled={
-                            table.tableFilterTexts.indexOf(word.text) !== -1
-                          }
-                          onClick={this.onWordClick.bind(this, word)}
-                        >
-                          {word.text}
-                        </Button>
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-              </Table>
+              <span className="WorcloudTrending">Trending</span>
+              {eventTagMap.map(word => (
+                <span className="WordcloudButton">
+                  <Button
+                    key={word.text}
+                    disabled={table.tableFilterTexts.indexOf(word.text) !== -1}
+                    onClick={this.onWordClick.bind(this, word)}
+                  >
+                    {word.text}
+                  </Button>
+                </span>
+              ))}
             </Paper>
             {table.tableFilterTexts && table.tableFilterTexts.length
               ? table.tableFilterTexts.map(text => (

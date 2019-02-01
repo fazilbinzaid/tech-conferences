@@ -15,7 +15,7 @@
     "react": "^16.7.0",
     "react-autosuggest": "^9.4.2",
     "react-dom": "^16.5.2",
-    "react-grid-system": "^4.3.1",
+    "react-grid-system": "^4.4.2",
     "react-material-ui-form-validator": "^2.0.2",
     "react-redux": "^5.1.0",
     "react-redux-firebase": "^2.1.9",

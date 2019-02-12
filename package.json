@@ -26,7 +26,7 @@
     "redux-actions": "^2.6.4",
     "redux-auth-wrapper": "^2.0.3",
     "redux-firestore": "^0.5.8",
-    "redux-saga": "^0.16.2",
+    "redux-saga": "^1.0.1",
     "redux-thunk": "^2.3.0",
     "typeface-roboto": "0.0.54"
   },
